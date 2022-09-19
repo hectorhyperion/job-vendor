@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\listing;
+
+use App\Models\listings;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,7 +16,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
        \App\Models\User::factory(5)->create();
-       listing::factory(6)->create();
+       listings::factory(20)->create();
        /*
     listing:: create([
         'title' =>'Laravel Senior Developer',

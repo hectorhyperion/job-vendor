@@ -4,19 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\listings;
-use Illuminate\Contracts\Validation\Rule;
-use Illuminate\Validation\Rule as ValidationRule;
+use Illuminate\Validation\Rule;
 use log;
+
 class ListingController extends Controller
 {
     //
     public function index()
     {
 
-        $listing= listings::orderBy('title','desc')->filter(request(['tag', 'search']))->get();
-        $title ='Job Listings';
+        $listing= listings::orderBy('created_at','desc')->filter(request(['tag', 'search']))->paginate(6);
+
         $data = array(
-            'title' => $title,
+
             'listings' => $listing
         );
         return view('listings.index')->with($data);
@@ -45,13 +45,17 @@ public function store(Request $request)
 {
     $formFields= $request->validate([
         'title' =>'required',
-        'company' =>['required', Rule::unique('listings', 'company')],
+        'company' =>'required|unique:listings',
         'location' =>'required',
         'website' =>'required',
         'email' =>['required','email'],
         'tags' =>'required',
         'description' =>'required',
     ]);
-    return redirect('/');
+    if($request->hasFile('logo')) {
+        $formFields['logo'] = $request->file('logo')->store('logos', 'public');
+    }
+     listings::create($formFields);
+    return redirect('/')->with('message','listing created successfully');
 }
 }
