@@ -19,5 +19,12 @@ Route::get('/',  [ListingController::class, 'index']);
 Route::get('/listing/create', [ListingController::class, 'create']);
 //store data
 Route::post('/listing', [ListingController::class, 'store']);
+//show edit form
+Route::get('/listing/{listings}/edit', [ListingController::class, 'edit']);
+
+// Update Listing
+Route::put('/listing/{listings}/', [ListingController::class , 'update']);
+//delete
+Route::delete('/listing/{listings}/',[ListingController::class, 'delete']);
 //job listing per page
 Route::get('/listing/{id}/', [ListingController::class, 'job']);

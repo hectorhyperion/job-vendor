@@ -6,14 +6,8 @@
 
 <div class="mx-4">
  <x-card class="p-10" >
-    <div
-        class="flex flex-col items-center justify-center text-center"
-    >
-        <img
-            class="w-48 mr-6 mb-6"
-            src="{{asset('images/no-image.png')}}"
-            alt=""
-        />
+    <div class="flex flex-col items-center justify-center text-center">
+        <img  class="w-48 mr-6 mb-6" src="{{$listings->logo ? asset('storage/'.$listings->logo): asset('images/no-image.png')}}" alt="" />
 
         <h3 class="text-2xl mb-2">{{$listings->title}}</h3>
         <div class="text-xl font-bold mb-4">{{$listings->company}}</div>
@@ -50,6 +44,16 @@
             </div>
         </div>
     </div>
+ </x-card>
+ <x-card class="mt-4 p-2 flex space-x-6">
+    <a href="/listing/{{$listings->id}}/edit">
+       <i class="fa-solid fa-pencil">Edit</i>
+    </a>
+    <form action="/listing/{{$listings->id}}" method="post">
+        @csrf
+        @method('DELETE')
+        <button class="text-red-500"><i class="fa-solid fa-trash">Delete</i></button>
+    </form>
  </x-card>
 </div>
 
