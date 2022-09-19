@@ -27,6 +27,9 @@ Route::get('/listing/{listings}/edit', [ListingController::class, 'edit'])->midd
 Route::put('/listing/{listings}/', [ListingController::class , 'update'])->middleware('auth');;
 //delete
 Route::delete('/listing/{listings}/',[ListingController::class, 'delete'])->middleware('auth');
+
+//Manage Listings
+Route::get('/listing/manage', [ListingController::class, 'manage'])->middleware('auth');
 //job listing per page
 Route::get('/listing/{id}/', [ListingController::class, 'job']);
 
@@ -40,3 +43,4 @@ Route::post('/logout',[UserController::class, 'logout'])->middleware('auth');
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
 //login User
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+
